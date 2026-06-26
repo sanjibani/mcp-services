@@ -290,6 +290,20 @@
 </section>
 
 <section>
+  <h2>Security &amp; compliance — built in, not bolted on</h2>
+  <p>Every shipped MCP server passes the same audit checklist we use internally. These aren't extras — they're the baseline.</p>
+  <ul style="margin-left: 1.5rem; margin-top: 0.75rem;">
+    <li><strong>isError-compliant:</strong> every tool call sets <code>isError: true</code> on the wire when it fails — no swallowed errors that LLMs mistake for success data.</li>
+    <li><strong>JSONL audit log:</strong> one record per tool call (timestamp, tool, request_id, args, result size, duration, error). Sink to stderr or a file via env var. Fail-open: a broken sink never breaks the tool.</li>
+    <li><strong>Secrets redaction:</strong> <code>password</code>, <code>api_key</code>, <code>token</code>, <code>refresh_token</code>, <code>authorization</code> stripped from audit records before write.</li>
+    <li><strong>Typed exception hierarchy:</strong> one exception class per failure mode (auth, not-found, rate-limit, network, server), each carrying <code>http_status</code> + <code>request_id</code> for replay.</li>
+    <li><strong>Dispatch-table error handling:</strong> a single (matcher, exception, message) table per HTTP status — no chained <code>if raise</code> ladders.</li>
+    <li><strong>Property-based tests</strong> (hypothesis) on every input validation path.</li>
+  </ul>
+  <p style="margin-top: 1rem;">For deeper compliance needs (OAuth 2.1 resource-server enforcement, prompt-injection sanitization, HITL pause), see <strong>mcp-shield</strong> — coming Q3 2026.</p>
+</section>
+
+<section>
   <h2>Pricing</h2>
   <p>Three tiers. Every engagement ships fully-owned, MIT-licensed source code. No SaaS, no ongoing fees.</p>
 
