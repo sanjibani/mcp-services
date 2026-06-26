@@ -1,6 +1,6 @@
 # mcp-services-site
 
-Landing page for sanjibani's custom MCP server engagements.
+Landing page for Sanjibani Choudhury's custom MCP server engagements.
 
 ## Files
 
